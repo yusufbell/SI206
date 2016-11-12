@@ -19,21 +19,23 @@ from nltk.book import text2
 
 from nltk import word_tokenize,sent_tokenize
 
-f = open(fname.txt, 'r')
-para = f.read()
+print("START*******")
 
-tokens = text2[:150]
-print("TOKENS")
-print(tokens)
+debug = False #True
+
+# get file from user to make mad lib out of
+if debug:
+	print ("Getting information from file madlib_test.txt...\n")
+
+tokens = text2[:151]
 tagged_tokens = nltk.pos_tag(tokens) # gives us a tagged list of tuples
-print("TAGGED TOKENS")
-print(tagged_tokens)
+
 if debug:
 	print ("First few tagged tokens are:")
 	for tup in tagged_tokens[:5]:
 		print (tup)
 
-tagmap = {"NN":"a noun","NNS":"a plural noun","VB":"a verb","JJ":"an adjective","CJ":"a conjuction"}
+tagmap = {"NN":"a noun","NNS":"a plural noun","VB":"a verb","JJ":"an adjective","VBD":"a past tense verb"}
 substitution_probabilities = {"NN":.15,"NNS":.1,"VB":.1,"JJ":.1,"CJ":.1}
 
 def spaced(word):
@@ -44,16 +46,20 @@ def spaced(word):
 
 final_words = []
 
+for (word) in tokens:
+    final_words.append(spaced(word))
 
+print ("".join(final_words))
+
+final_words = []
+    
 for (word, tag) in tagged_tokens:
 	if tag not in substitution_probabilities or random.random() > substitution_probabilities[tag]:
 		final_words.append(spaced(word))
 	else:
-		new_word = input("Please enter %s:\n" % (tagmap[tag]))
+		new_word = input("\nPlease enter %s:\n" % (tagmap[tag]))
 		final_words.append(spaced(new_word))
 
-print ("".join(final_words))
-print("START*******")
+print ("\n" + "".join(final_words))
 
-
-print("\n\nEND*******")
+print("\nEND*******")
