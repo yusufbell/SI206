@@ -18,6 +18,9 @@ auth = tweepy.OAuthHandler(consumer_key,consumer_secret)
 auth.set_access_token(access_token,access_token_secret)
 
 api = tweepy.API(auth)
-api.update_with_media('media/yusuf.jpg', status= '#UMSI-206 #Proj3')
+
+image = input('Enter location of image: ')
+message = input('Enter tweet: ')
+api.update_with_media(image, status = message)
 
 
